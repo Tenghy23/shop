@@ -1,4 +1,8 @@
-﻿using Application.Extensions;
+﻿using Microsoft.OpenApi.Models;
+using Application.Middleware;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Application.Extensions;
 
 namespace Application
 {
@@ -18,7 +22,12 @@ namespace Application
         {
             services.AddControllers();
 
-            services.AddSwaggerDocumentation();
+            services.AddApplicationServices();
+            // refer to https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-8.0&tabs=visual-studio
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+            });
 
             services.AddCors(opt =>
             {
@@ -35,7 +44,7 @@ namespace Application
         {
             // app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+            //app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
 
@@ -47,7 +56,8 @@ namespace Application
 
             app.UseAuthorization();
 
-            app.UseSwaggerDocumentation();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseCors(cors =>
             {
@@ -58,7 +68,6 @@ namespace Application
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-
             });
         }
     }

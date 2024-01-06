@@ -1,3 +1,6 @@
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 namespace Application
 {
     public class Program
@@ -11,22 +14,22 @@ namespace Application
             {
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                //try
-                //{
-                //    var context = services.GetRequiredService<StoreDbContext>();
-                //    await context.Database.MigrateAsync();
-                //    await StoreContextSeed.SeedAsync(context, loggerFactory);
-                //}
-                //catch (Exception ex)
-                //{
-                //    var logger = loggerFactory.CreateLogger<Program>();
-                //    logger.LogError(ex, "An error occured during migration");
-                //}
+                try
+                {
+                    var context = services.GetRequiredService<StoreDbContext>();
+                    await context.Database.MigrateAsync();
+                    //await StoreContextSeed.SeedAsync(context, loggerFactory);
+                }
+                catch (Exception ex)
+                {
+                    var logger = loggerFactory.CreateLogger<Program>();
+                    logger.LogError(ex, "An error occured during migration");
+                }
             }
-
             host.Run();
         }
 
+        // instead of calling everything in Program.cs, we throw some of the startup processes into startup.cs
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
