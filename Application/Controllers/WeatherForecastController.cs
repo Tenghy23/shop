@@ -1,9 +1,10 @@
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers
 {
-    public class WeatherForecastController : BaseApiController
+    [ApiController]
+    [Route("[controller]")]
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -22,7 +23,7 @@ namespace Application.Controllers
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = DateTime.Now.AddDays(index),
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
