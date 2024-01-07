@@ -59,3 +59,5 @@ app.MapControllers();
 #endregion
 
 app.Run();
+
+/* dotnet 6 onwards now allows integration of startup into program.cs! */
