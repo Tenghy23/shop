@@ -1,64 +1,63 @@
-namespace Application
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
+
+#region Add services to the container.
+
+builder.Services.AddControllers();
+builder.Services.AddDbContext<StoreDbContext>(x =>
+    x.UseSqlServer(config.GetConnectionString("DefaultConnection"),
+    x => x.MigrationsAssembly("Application")));
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+});
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
     {
-        public static async Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
+        policy.AllowAnyHeader().AllowAnyHeader().WithOrigins("https://localhost:4200");
+    });
+});
 
-            // any code inside using will be disposed after all the methods ran 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                //try
-                //{
-                //    var context = services.GetRequiredService<StoreDbContext>();
-                //    await context.Database.MigrateAsync();
-                //    await StoreContextSeed.SeedAsync(context, loggerFactory);
-                //}
-                //catch (Exception ex)
-                //{
-                //    var logger = loggerFactory.CreateLogger<Program>();
-                //    logger.LogError(ex, "An error occured during migration");
-                //}
-            }
+#endregion
 
-            host.Run();
-        }
+var app = builder.Build();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+#region Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
+//app.UseMiddleware<ExceptionMiddleware>();
+//app.UseStatusCodePagesWithReExecute("/errors/{0}");
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseStaticFiles();
+app.UseCors("CorsPolicy");
+app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors(cors =>
+{
+    cors.AllowAnyHeader();
+    cors.AllowAnyOrigin();
+});
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
-//var builder = WebApplication.CreateBuilder(args);
+#endregion
 
-//// Add services to the container.
+app.Run();
 
-//builder.Services.AddControllers();
-//// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-//app.UseHttpsRedirection();
-
-//app.UseAuthorization();
-
-//app.MapControllers();
-
-//app.Run();
+/* dotnet 6 onwards now allows integration of startup into program.cs! */
