@@ -60,4 +60,4 @@ app.MapControllers();
 
 app.Run();
 
-/* dotnet 6 onwards now allows integration of startup into program.cs! */
+/* .net 6 onwards now allows integration of startup into program.cs! */
