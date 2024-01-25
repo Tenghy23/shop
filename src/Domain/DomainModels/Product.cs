@@ -2,24 +2,14 @@
 {
     public class Product : BaseEntity
     {
-        public string Name { get; set; }
+        public Guid InventoryId { get; set; }
+        public string Name { get; private set; }
         public string Description { get; set; }
+        public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public string PictureUrl { get; set; }
-        public Guid ProductTypeId { get; set; }
-        public Guid ProductBrandId { get; set; }
+        public Category Category { get; set; }
+        public Discount Discount { get; set; }
 
-        //public Product(string name, string description, decimal price, string pictureUrl, ProductType productType, Guid productTypeId,
-        //    ProductBrand productBrand, Guid productBrandId)
-        //{
-        //    Name = name;
-        //    Description = description;
-        //    Price = price;
-        //    PictureUrl = pictureUrl;
-        //    ProductType = productType;
-        //    ProductTypeId = productTypeId;
-        //    ProductBrand = productBrand;
-        //    ProductBrandId = productBrandId;
-        //}
+        public Product() { }
     }
 }
