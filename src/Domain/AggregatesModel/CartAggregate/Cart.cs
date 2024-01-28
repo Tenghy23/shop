@@ -5,8 +5,8 @@ namespace Domain.AggregatesModel.CartAggregate
 {
     public class Cart : BaseEntity
     {
-        public Guid UserId { get; set; }
-        public List<Product> ProductList { get; set; }
+        public Guid? UserId { get; private set; }
+        public ICollection<Product> ProductList { get; set; }
 
         public Cart() { }
     }

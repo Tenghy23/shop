@@ -9,8 +9,9 @@
             builder.Property(p => p.UserId);
             builder.Property(p => p.Total);
 
-            builder.Property(p => p.PaymentDetails);
-            builder.Property(p => p.OrderDetailsList);
+            builder.HasMany(p => p.OrderDetailsList);
+
+            builder.HasOne(p => p.PaymentDetails);
         }
     }
 }

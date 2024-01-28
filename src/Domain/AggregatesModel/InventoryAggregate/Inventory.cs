@@ -5,7 +5,7 @@ namespace Domain.AggregatesModel.InventoryAggregate
 {
     public class Inventory : BaseEntity
     {
-        public Product Product { get; private set; }
+        public Guid ProductId { get; private set; }
         public int StockRemaining { get; private set; }
 
         public Inventory() { }

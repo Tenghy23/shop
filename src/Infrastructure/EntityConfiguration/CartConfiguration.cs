@@ -4,10 +4,9 @@
     {
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
-            builder.Property(p => p.Id).IsRequired();
-            builder.Property(p => p.UserId).IsRequired();
+            builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.ProductList);
+            builder.HasMany(p => p.ProductList);
         }
     }
 }

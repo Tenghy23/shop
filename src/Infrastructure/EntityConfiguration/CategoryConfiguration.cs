@@ -4,9 +4,9 @@
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.Property(p => p.Id).IsRequired();
-            builder.Property(p => p.CategoryName).IsRequired();
+            builder.HasKey(p => p.Id);
 
+            builder.Property(p => p.CategoryName).IsRequired();
             builder.Property(p => p.Description);
         }
     }

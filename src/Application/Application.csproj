@@ -27,6 +27,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\" />
     <Folder Include="Templates\" />
     <Folder Include="Services\" />

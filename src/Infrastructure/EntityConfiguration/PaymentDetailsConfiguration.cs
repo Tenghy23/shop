@@ -4,9 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<PaymentDetails> builder)
         {
-            builder.Property(p => p.Id).IsRequired();
-
-            builder.Property(p => p.OrderId).IsRequired();
+            builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Amount);
             builder.Property(p => p.Provider);

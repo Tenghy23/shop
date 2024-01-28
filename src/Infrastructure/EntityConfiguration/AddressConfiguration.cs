@@ -4,8 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.Property(p => p.Id).IsRequired();
-            builder.Property(p => p.UserId).IsRequired();
+            builder.HasKey(p => p.Id);
 
             builder.Property(p => p.AddressLine1);
             builder.Property(p => p.AddressLine2);

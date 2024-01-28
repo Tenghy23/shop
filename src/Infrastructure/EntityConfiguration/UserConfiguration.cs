@@ -4,7 +4,7 @@
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(p => p.Id).IsRequired();
+            builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Username);
             builder.Property(p => p.Password);
@@ -13,9 +13,18 @@
             builder.Property(p => p.LastName);
             builder.Property(p => p.PhoneNumber);
 
-            builder.Property(p => p.Cart);
-            builder.Property(p => p.Address);
-            builder.Property(p => p.PaymentDetails);
+            builder.HasOne(u => u.Cart)
+                        .WithOne()
+                        .HasForeignKey<User>(u => u.CartId);
+
+            builder.HasOne(u => u.Address)
+                        .WithOne()
+                        .HasForeignKey<User>(u => u.AddressId);
+
+            builder.HasOne(u => u.PaymentDetails)
+                        .WithOne()
+                        .HasForeignKey<User>(u => u.PaymentDetailsId);
         }
     }
 }
+    

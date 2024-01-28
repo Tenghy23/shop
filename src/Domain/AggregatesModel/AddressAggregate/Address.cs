@@ -4,7 +4,7 @@ namespace Domain.AggregatesModel.AddressAggregate
 {
     public class Address : BaseEntity
     {
-        public Guid UserId { get; private set; }
+        public Guid? UserId { get; private set; }
         public string? AddressLine1 { get; private set; }
         public string? AddressLine2 { get; private set; }
         public string? City { get; private set; }

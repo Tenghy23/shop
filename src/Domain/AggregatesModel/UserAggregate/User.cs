@@ -7,6 +7,9 @@ namespace Domain.AggregatesModel.UserAggregate
 {
     public class User : BaseEntity
     {
+        public Guid? CartId { get; set; }
+        public Guid? AddressId { get; set; }
+        public Guid? PaymentDetailsId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -16,17 +19,6 @@ namespace Domain.AggregatesModel.UserAggregate
         public Address? Address { get; set; }
         public PaymentDetails? PaymentDetails { get; set; }
 
-        public User(string username, string password, string firstName, string lastName,
-            int phoneNumber, Cart? cart, Address? address, PaymentDetails? paymentDetails)
-        {
-            Username = username;
-            Password = password;
-            FirstName = firstName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
-            Cart = cart;
-            Address = address;
-            PaymentDetails = paymentDetails;
-        }
+        public User() { }
     }
 }
