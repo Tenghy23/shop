@@ -1,5 +1,4 @@
 using Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +7,21 @@ var config = builder.Configuration;
 #region Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<StoreDbContext>(x =>
-    x.UseSqlServer(config.GetConnectionString("DefaultConnection"),
-    x => x.MigrationsAssembly("Application")));
+builder.Services.AddDbContext<StoreDbContext>(options =>
+{
+    options.UseSqlServer(
+        config.GetConnectionString("DefaultConnection"),
+        sqlServerOptions =>
+        {
+            sqlServerOptions.MigrationsAssembly("Application"); // Specify the assembly containing migrations
+            sqlServerOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null
+            ); // Enable retry logic for transient failures
+        }
+    );
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
