@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.AggregatesModel.ProductAggregate;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

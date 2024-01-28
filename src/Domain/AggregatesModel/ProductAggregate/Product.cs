@@ -1,4 +1,8 @@
-﻿namespace Domain.Entities
+﻿using Domain.AggregatesModel.CategoryAggregate;
+using Domain.AggregatesModel.CommonAggregate;
+using Domain.AggregatesModel.DiscountAggregate;
+
+namespace Domain.AggregatesModel.ProductAggregate
 {
     public class Product : BaseEntity
     {

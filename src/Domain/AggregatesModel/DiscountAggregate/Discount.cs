@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using Domain.AggregatesModel.CommonAggregate;
+
+namespace Domain.AggregatesModel.DiscountAggregate
 {
     public class Discount : BaseEntity
     {

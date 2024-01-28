@@ -1,4 +1,6 @@
-﻿namespace Domain.DomainModels
+﻿using Domain.AggregatesModel.CommonAggregate;
+
+namespace Domain.AggregatesModel.CategoryAggregate
 {
     public class Category : BaseEntity
     {

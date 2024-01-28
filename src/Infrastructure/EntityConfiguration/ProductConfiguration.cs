@@ -1,8 +1,4 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Infrastructure.EntityConfiguration
+﻿namespace Infrastructure.EntityConfiguration
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
@@ -14,7 +10,6 @@ namespace Infrastructure.EntityConfiguration
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
-            builder.Property(p => p.PictureUrl).IsRequired();
         }
     }
 }

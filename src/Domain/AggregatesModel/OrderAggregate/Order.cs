@@ -1,4 +1,8 @@
-﻿namespace Domain.DomainModels
+﻿using Domain.AggregatesModel.CommonAggregate;
+using Domain.AggregatesModel.OrderDetailsAggregate;
+using Domain.AggregatesModel.PaymentDetailsAggregate;
+
+namespace Domain.AggregatesModel.OrderAggregate
 {
     public class Order : BaseEntity
     {

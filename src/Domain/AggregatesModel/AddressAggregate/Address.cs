@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using Domain.AggregatesModel.CommonAggregate;
+
+namespace Domain.AggregatesModel.AddressAggregate
 {
     public class Address : BaseEntity
     {

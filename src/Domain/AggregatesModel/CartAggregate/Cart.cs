@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities
+﻿using Domain.AggregatesModel.CommonAggregate;
+using Domain.AggregatesModel.ProductAggregate;
+
+namespace Domain.AggregatesModel.CartAggregate
 {
     public class Cart : BaseEntity
     {

@@ -1,4 +1,7 @@
-﻿namespace Domain.DomainModels
+﻿using Domain.AggregatesModel.CommonAggregate;
+using Domain.AggregatesModel.ProductAggregate;
+
+namespace Domain.AggregatesModel.OrderDetailsAggregate
 {
     public class OrderDetails : BaseEntity
     {
