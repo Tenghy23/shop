@@ -1,17 +1,4 @@
-﻿using Domain.AggregatesModel.CartAggregate;
-using Domain.AggregatesModel.CategoryAggregate;
-using Domain.AggregatesModel.DiscountAggregate;
-using Domain.AggregatesModel.InventoryAggregate;
-using Domain.AggregatesModel.OrderAggregate;
-using Domain.AggregatesModel.OrderDetailsAggregate;
-using Domain.AggregatesModel.PaymentDetailsAggregate;
-using Domain.AggregatesModel.ProductAggregate;
-using Domain.AggregatesModel.UserAggregate;
-using Domain.AggregatesModel.AddressAggregate;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-
-namespace Infrastructure
+﻿namespace Infrastructure
 {
     public class StoreDbContext : DbContext
     {

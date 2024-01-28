@@ -48,12 +48,12 @@ app.UseCors(cors =>
     cors.AllowAnyHeader();
     cors.AllowAnyOrigin();
 });
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
 
 #endregion
