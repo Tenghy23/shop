@@ -23,8 +23,4 @@
     <Folder Include="Idempotence\" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Compile Include="..\Domain\GlobalUsings.cs" Link="GlobalUsings.cs" />
-	</ItemGroup>
-
 </Project>
