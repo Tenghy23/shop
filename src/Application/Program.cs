@@ -1,4 +1,5 @@
 using Infrastructure;
+using Infrastructure.Data;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,10 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyHeader().AllowAnyHeader().WithOrigins("https://localhost:4200");
     });
 });
+
+#region AddScoped region
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+#endregion
 
 #endregion
 

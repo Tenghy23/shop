@@ -15,7 +15,7 @@
     <Folder Include="Enum\" />
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Services\" />
+    <Folder Include="CommonServices\" />
     <Folder Include="Validators\" />
     <Folder Include="SeedWork\" />
   </ItemGroup>

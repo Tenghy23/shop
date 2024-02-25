@@ -1,8 +1,4 @@
-﻿using Domain.AggregatesModel.ProductAggregate;
-using Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace Infrastructure.Data
+﻿namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
@@ -14,7 +10,7 @@ namespace Infrastructure.Data
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
-            return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Products.FirstAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
