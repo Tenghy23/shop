@@ -31,8 +31,17 @@ builder.Services.AddCors(opt =>
     });
 });
 
-#region AddScoped region
+#region AddScoped region for repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+#endregion
+
+#region AddScoped region for domain services
+builder.Services.AddScoped<IProductDomainService, ProductDomainService>();
+#endregion
+
+#region AddScoped region for application services
+builder.Services.AddScoped<IProductService, ProductService>();
 #endregion
 
 #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Interfaces;
+using System;
 
 namespace Application.Controllers
 {
@@ -6,13 +7,16 @@ namespace Application.Controllers
     //[Route("[product]")]
     public class ProductController : ApplicationBaseController
     {
+        private readonly IProductService _productService;
         private readonly IProductRepository _productRepository;
 
         public ProductController(
-            IProductRepository productRepository
+            IProductRepository productRepository,
+            IProductService productService
             )
         {
             _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet("getAllProducts")]
@@ -48,5 +52,23 @@ namespace Application.Controllers
                 return InvalidResponse(ex);
             }
         }
+
+        [HttpPost("seedProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> seedProducts(int count)
+        {
+            try
+            {
+                var response = await _productService.SeedProducts(count);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return InvalidResponse(ex);
+            }
+        }
+
     }
 }

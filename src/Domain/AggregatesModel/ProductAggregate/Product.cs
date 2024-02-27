@@ -14,6 +14,23 @@ namespace Domain.AggregatesModel.ProductAggregate
         public decimal? Price { get; set; }
         public ICollection<Discount>? Discount { get; set; }
 
-        public Product() { }
+        public Product(
+            Guid inventoryId, 
+            Guid? categoryId,
+            string? name,
+            string? description,
+            int? quantity,
+            decimal? price
+            )
+        {
+            InventoryId = inventoryId;
+            CategoryId = categoryId;
+            Name = name;
+            Description = description;
+            Quantity = quantity;
+            Price = price;
+            Discount = null;
+        }
+
     }
 }

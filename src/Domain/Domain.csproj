@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="RandomDataGenerator.Net" Version="1.0.17" />
   </ItemGroup>
 
   <ItemGroup>

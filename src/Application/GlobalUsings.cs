@@ -27,3 +27,5 @@ global using Application.Models.DTOs;
 global using Application.Helpers;
 global using Microsoft.AspNetCore.Http;
 global using System.Runtime.CompilerServices;
+global using Application.Interfaces;
+global using Application.Services;

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.AggregatesModel.ProductAggregate
 {
-    internal class ProductService
+    public interface IProductDomainService
     {
+        Task<string> SeedProducts(int count);
     }
 }

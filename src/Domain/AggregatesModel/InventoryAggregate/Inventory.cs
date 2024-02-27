@@ -8,6 +8,10 @@ namespace Domain.AggregatesModel.InventoryAggregate
         public Guid ProductId { get; private set; }
         public int StockRemaining { get; private set; }
 
-        public Inventory() { }
+        public Inventory(Guid productId, int stockRemaining)
+        {
+            ProductId = productId;
+            StockRemaining = stockRemaining;
+        }
     }
 }
