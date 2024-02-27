@@ -1,7 +1,3 @@
-using Infrastructure;
-using Infrastructure.Data;
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 

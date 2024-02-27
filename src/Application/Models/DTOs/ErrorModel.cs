@@ -18,7 +18,7 @@
 
         protected ErrorModel(SerializationInfo info, StreamingContext context) { }
 
-        //void ISerializable GetObjectData(SerializationInfo info, StreamingContext context) 
+        //void ISerializable GetObjectData(SerializationInfo info, StreamingContext context)
         //{
         //    if (info == null) throw new ArgumentNullException("info");
 
