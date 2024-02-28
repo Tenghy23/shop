@@ -8,6 +8,6 @@ namespace Domain.AggregatesModel.ProductAggregate
 {
     public interface IProductDomainService
     {
-        Task<string> SeedProducts(int count);
+        Task<string> SeedProductsAndInventory(int count);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IProductService
     {
-        Task<string> SeedProducts(int count);
+        Task<string> SeedProductsAndInventory(int count);
     }
 }

@@ -18,7 +18,7 @@ namespace Domain.AggregatesModel.ProductAggregate
             _inventoryRepository = inventoryRepository;
         }
 
-        public async Task<string> SeedProducts(int count)
+        public async Task<string> SeedProductsAndInventory(int count)
         {
             try
             {

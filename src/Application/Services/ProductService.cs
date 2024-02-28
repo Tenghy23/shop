@@ -17,7 +17,7 @@ namespace Application.Services
             _productRepository = productRepository;
         }
 
-        public async Task<string> SeedProducts(int count)
+        public async Task<string> SeedProductsAndInventory(int count)
         {
             if (count > 10000)
             {
@@ -25,7 +25,7 @@ namespace Application.Services
             } 
             else
             {
-                return await _productDomainService.SeedProducts(count);
+                return await _productDomainService.SeedProductsAndInventory(count);
             }
         }
 
