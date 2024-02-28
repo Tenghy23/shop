@@ -53,22 +53,5 @@ namespace Application.Controllers
             }
         }
 
-        [HttpPost("seedProducts")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SeedProductsAndInventory(int count)
-        {
-            try
-            {
-                var response = await _productService.SeedProductsAndInventory(count);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
-        }
-
     }
 }

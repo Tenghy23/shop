@@ -28,7 +28,7 @@ namespace Infrastructure.Data
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
-            return await _dbContext.Products.FirstAsync(x => x.Id == id);
+            return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()

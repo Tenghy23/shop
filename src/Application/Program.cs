@@ -38,6 +38,7 @@ builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 
 #region AddScoped region for domain services
 builder.Services.AddScoped<IProductDomainService, ProductDomainService>();
+builder.Services.AddScoped<IMockDataDomainService, MockDataDomainService>();
 #endregion
 
 #region AddScoped region for application services
