@@ -6,8 +6,13 @@ namespace Domain.AggregatesModel.CategoryAggregate
     {
         public Guid? ProductId { get; private set; }
         public string? CategoryName { get; private set; }
-        public int? Description { get; private set; }
+        public string? Description { get; private set; }
 
-        public Category() { }
+        public Category(Guid? productId, string? categoryName, string? description)
+        {
+            ProductId = productId;
+            CategoryName = categoryName;
+            Description = description;
+        }
     }
 }

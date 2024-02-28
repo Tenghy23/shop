@@ -1,7 +1,4 @@
-﻿using Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace Application.Services
+﻿namespace Application.Services
 {
     public class ProductService : IProductService
     {

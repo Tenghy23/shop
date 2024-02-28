@@ -1,7 +1,4 @@
-﻿using Application.Interfaces;
-using System;
-
-namespace Application.Controllers
+﻿namespace Application.Controllers
 {
     [ApiController]
     //[Route("[product]")]

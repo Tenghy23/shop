@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Infrastructure.Data
+﻿namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
