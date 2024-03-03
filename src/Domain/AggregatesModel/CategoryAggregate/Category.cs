@@ -5,13 +5,13 @@ namespace Domain.AggregatesModel.CategoryAggregate
     public class Category : BaseEntity
     {
         public Guid? ProductId { get; private set; }
-        public string? CategoryName { get; private set; }
+        public string CategoryName { get; private set; }
         public string? Description { get; private set; }
 
-        public Category(Guid? productId, string? categoryName, string? description)
+        public Category(string categoryName, Guid? productId, string? description)
         {
-            ProductId = productId;
             CategoryName = categoryName;
+            ProductId = productId;
             Description = description;
         }
     }

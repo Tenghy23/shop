@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20240128175710_Initialize-BaseModels")]
-    partial class InitializeBaseModels
+    [Migration("20240303164429_initial-migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,8 +117,8 @@ namespace Application.Migrations
                     b.Property<DateTimeOffset?>("DateTimeUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -257,8 +257,9 @@ namespace Application.Migrations
                     b.Property<DateTimeOffset?>("DateTimeUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

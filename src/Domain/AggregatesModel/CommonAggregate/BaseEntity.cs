@@ -8,10 +8,10 @@ namespace Domain.AggregatesModel.CommonAggregate
 {
     public abstract class BaseEntity
     {
-        public Guid Id { get; set; } = new Guid();
-        public string? CreatedBy { get; set; }
-        public string? UpdatedBy { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string? CreatedBy { get; set; } = "SYSTEM";
+        public string? UpdatedBy { get; set; } = "SYSTEM";
         public DateTimeOffset? DateTimeCreated { get; set; } = DateTimeOffset.Now;
-        public DateTimeOffset? DateTimeUpdated { get; set; }
+        public DateTimeOffset? DateTimeUpdated { get; set; } = DateTimeOffset.Now;
     }
 }

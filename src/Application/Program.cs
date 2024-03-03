@@ -46,6 +46,7 @@ builder.Services.AddScoped<IMockDataDomainService, MockDataDomainService>();
 
 #region AddScoped region for application services
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IMockDataService, MockDataService>();
 #endregion
 
 #endregion

@@ -114,8 +114,8 @@ namespace Application.Migrations
                     b.Property<DateTimeOffset?>("DateTimeUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -254,8 +254,9 @@ namespace Application.Migrations
                     b.Property<DateTimeOffset?>("DateTimeUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
