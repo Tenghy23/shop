@@ -35,5 +35,17 @@
             }
         }
 
+        public async Task<string> MockAddress(int count)
+        {
+            if (count > 100000)
+            {
+                return "Only provide Input count < 100000 records, no data is seeded";
+            }
+            else
+            {
+                return await _mockDataDomainService.MockAddress(count);
+            }
+        }
+
     }
 }
