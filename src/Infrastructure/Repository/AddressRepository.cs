@@ -1,26 +1,26 @@
 ﻿namespace Infrastructure.Data
 {
-    public class CategoryRepository : ICategoryRepository
+    public class AddressRepository : IAddressRepository
     {
         private readonly StoreDbContext _dbContext;
-        public CategoryRepository(StoreDbContext context)
+        public AddressRepository(StoreDbContext context)
         {
             _dbContext = context;
         }
 
         // HY to look into this again.. may not be the best way to save ...
-        public async Task SaveDataAsync(IEnumerable<Category> categories)
+        public async Task SaveDataAsync(IEnumerable<Address> addresses)
         {
             try
             {
-                _dbContext.Category.AddRange(categories);
+                _dbContext.Address.AddRange(addresses);
 
                 // Save changes to the database
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new Exception($"Category SaveChangesAsync error: {ex.Message}");
+                throw new Exception($"Address SaveChangesAsync error: {ex.Message}");
             }
         }
 

@@ -13,6 +13,17 @@ namespace Domain.AggregatesModel.AddressAggregate
         public string? MobileNumber { get; private set; }
         public string? Email { get; private set; }
 
-        public Address() { }
+        public Address(Guid? userId, string? addressLine1, string? addressLine2, 
+            string? city, int? postalCode, string? country, string? mobileNumber, string? email)
+        {
+            UserId = userId;
+            AddressLine1 = addressLine1;
+            AddressLine2 = addressLine2;
+            City = city;
+            PostalCode = postalCode;
+            Country = country;
+            MobileNumber = mobileNumber;
+            Email = email;
+        }
     }
 }

@@ -46,5 +46,22 @@
             }
         }
 
+        [HttpPost("MockAddress")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> MockAddress(int count)
+        {
+            try
+            {
+                var response = await _mockDataService.MockAddress(count);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return InvalidResponse(ex);
+            }
+        }
+
     }
 }
