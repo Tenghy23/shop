@@ -2,6 +2,7 @@
 
 namespace Application.Controllers
 {
+    [ApiExplorerSettings(GroupName = "CSharpTopics")]
     public class CSharpTopicsController : ApplicationBaseController
     {
         private readonly ICSharpTopicsService _cSharpTopicService;

@@ -23,7 +23,9 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
 });
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+    c.SwaggerDoc("ECommerce8", new OpenApiInfo { Title = "ECommerce8", Version = "v1" });
+    c.SwaggerDoc("CSharpTopics", new OpenApiInfo { Title = "CSharpTopics", Version = "v1" });
+    c.SwaggerDoc("Algorithms", new OpenApiInfo { Title = "Algorithms", Version = "v1" });
 });
 builder.Services.AddCors(opt =>
 {
@@ -59,7 +61,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/ECommerce8/swagger.json", "ECommerce8");
+        c.SwaggerEndpoint("/swagger/CSharpTopics/swagger.json", "CSharpTopics");
+        c.SwaggerEndpoint("/swagger/Algorithms/swagger.json", "Algorithms");
+    });
 }
 
 //app.UseMiddleware<ExceptionMiddleware>();
