@@ -37,6 +37,7 @@ builder.Services.AddCors(opt =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 #endregion
 
 #region AddScoped region for domain services

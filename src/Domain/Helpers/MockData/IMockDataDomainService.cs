@@ -4,5 +4,6 @@
     {
         Task<string> MockProductsAndInventory(int count);
         Task<string> MockCategory(int count);
+        Task<string> MockAddress(int count);
     }
 }
