@@ -30,6 +30,23 @@ namespace Application.Controllers
             }
         }
 
+        [HttpPost("StreamReadFromTxtFile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> StreamReadFromTxtFile()
+        {
+            try
+            {
+                var response = await _cSharpTopicService.StreamReadFromTxtFile();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return InvalidResponse(ex);
+            }
+        }
+
         [HttpPost("StreamWriteIntoExcelFile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -47,5 +64,21 @@ namespace Application.Controllers
             }
         }
 
+        [HttpPost("StreamReadFromExcelFile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> StreamReadFromExcelFile()
+        {
+            try
+            {
+                var response = await _cSharpTopicService.StreamReadFromExcelFile();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return InvalidResponse(ex);
+            }
+        }
     }
 }
