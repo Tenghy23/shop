@@ -12,6 +12,7 @@ global using Domain.AggregatesModel.PaymentDetailsAggregate;
 global using Domain.AggregatesModel.ProductAggregate;
 global using Domain.AggregatesModel.UserAggregate;
 global using Domain.AggregatesModel.AddressAggregate;
+global using Domain.AggregatesModel.CommonAggregate;
 global using RandomDataGenerator.FieldOptions;
 global using RandomDataGenerator.Randomizers;
 global using Microsoft.EntityFrameworkCore;

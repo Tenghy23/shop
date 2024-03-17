@@ -1,9 +1,4 @@
-﻿using Domain.AggregatesModel.CartAggregate;
-using Domain.AggregatesModel.CommonAggregate;
-using Domain.AggregatesModel.PaymentDetailsAggregate;
-using Domain.AggregatesModel.AddressAggregate;
-
-namespace Domain.AggregatesModel.UserAggregate
+﻿namespace Domain.AggregatesModel.UserAggregate
 {
     public class User : BaseEntity
     {
