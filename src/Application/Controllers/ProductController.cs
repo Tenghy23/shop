@@ -1,6 +1,7 @@
 ﻿namespace Application.Controllers
 {
     [ApiController]
+    [ApiExplorerSettings(GroupName = "ECommerce8")]
     //[Route("[product]")]
     public class ProductController : ApplicationBaseController
     {
