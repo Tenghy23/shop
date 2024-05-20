@@ -23,3 +23,4 @@ global using Domain.Utilities;
 global using System.Diagnostics;
 global using System.Runtime.Serialization;
 global using System.Runtime.CompilerServices;
+global using Microsoft.AspNetCore.Identity;

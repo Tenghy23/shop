@@ -30,3 +30,7 @@ global using System.Runtime.CompilerServices;
 global using Application.Interfaces;
 global using Application.Services;
 global using Domain.Helpers.MockData;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
+global using Microsoft.AspNetCore.Identity;
