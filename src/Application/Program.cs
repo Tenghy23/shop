@@ -53,6 +53,7 @@ builder.Services.AddScoped<IMockDataDomainService, MockDataDomainService>();
 
 #region AddScoped region for application services
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICSharpTopicsService, CSharpTopicsService>();
 builder.Services.AddScoped<IMockDataService, MockDataService>();
 #endregion
 
@@ -69,7 +70,12 @@ if (app.Environment.IsDevelopment())
     dbContext.Database.Migrate();
 
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/ECommerce8/swagger.json", "ECommerce8");
+        c.SwaggerEndpoint("/swagger/CSharpTopics/swagger.json", "CSharpTopics");
+        c.SwaggerEndpoint("/swagger/Algorithms/swagger.json", "Algorithms");
+    });
 }
 
 //app.UseMiddleware<ExceptionMiddleware>();
