@@ -5,8 +5,8 @@
         public Guid? CartId { get; set; }
         public Guid? AddressId { get; set; }
         public Guid? PaymentDetailsId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = "default";
+        public string LastName { get; set; } = "default";
         public Cart? Cart { get; set; }
         public Address? Address { get; set; }
         public PaymentDetails? PaymentDetails { get; set; }
