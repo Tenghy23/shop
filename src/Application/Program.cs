@@ -1,9 +1,10 @@
-using System.ComponentModel;
-
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 #region Add services to the container.
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreDbContext>(options =>
@@ -21,12 +22,6 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
         }
     );
 });
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("ECommerce8", new OpenApiInfo { Title = "ECommerce8", Version = "v1" });
-    c.SwaggerDoc("CSharpTopics", new OpenApiInfo { Title = "CSharpTopics", Version = "v1" });
-    c.SwaggerDoc("Algorithms", new OpenApiInfo { Title = "Algorithms", Version = "v1" });
-});
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
@@ -34,6 +29,15 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyHeader().AllowAnyHeader().WithOrigins("https://localhost:4200");
     });
 });
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddCookie(IdentityConstants.ApplicationScheme)
+    .AddBearerToken(IdentityConstants.BearerScheme);
+
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<StoreDbContext>()
+    .AddApiEndpoints();
 
 #region AddScoped region for repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -57,9 +61,14 @@ builder.Services.AddScoped<IMockDataService, MockDataService>();
 
 var app = builder.Build();
 
-#region Configure the HTTP request pipeline.
+#region Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<StoreDbContext>();
+    dbContext.Database.Migrate();
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -74,23 +83,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
-app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseCors(cors =>
-{
-    cors.AllowAnyHeader();
-    cors.AllowAnyOrigin();
-});
+
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    endpoints.MapIdentityApi<User>();
 });
-app.UseHttpsRedirection();
-app.MapControllers();
-
 #endregion
 
 app.Run();

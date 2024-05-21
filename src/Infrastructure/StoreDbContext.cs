@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure
 {
-    public class StoreDbContext : DbContext
+    public class StoreDbContext : IdentityDbContext
     {
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {

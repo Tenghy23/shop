@@ -4,11 +4,6 @@
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(p => p.Id);
-
-            builder.Property(p => p.Username);
-            builder.Property(p => p.Password);
-
             builder.Property(p => p.FirstName);
             builder.Property(p => p.LastName);
             builder.Property(p => p.PhoneNumber);
@@ -24,6 +19,8 @@
             builder.HasOne(u => u.PaymentDetails)
                         .WithOne()
                         .HasForeignKey<User>(u => u.PaymentDetailsId);
+
+            builder.ToTable("Users", "identity");
         }
     }
 }
