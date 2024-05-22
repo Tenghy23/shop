@@ -1,4 +1,4 @@
-# Domain-Driven Design for Microservice Architecture .Net6
+# Domain-Driven Design for Microservice Architecture .Net8
 
 First attempt on creating an Ecommerce store with a DDD driven architecture design. Documentation in Progress.
 
@@ -8,7 +8,10 @@ First attempt on creating an Ecommerce store with a DDD driven architecture desi
 - [Domain Implementation](#4)
 - [Infrastructure Implementation](#5)
 
-<h1 id="1">Apply CQRS & DDD in MA</h1>
+<details>
+<summary>
+	<h1 id="1">Apply CQRS & DDD in MA</h1>
+</summary>
 
 [Applying simplified CQRS and DDD patterns in a microservice | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns)
 
@@ -21,14 +24,22 @@ The basic idea is that you can divide a system's operations into two sharply sep
 -   Commands. These commands change the state of a system.
 
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/apply-simplified-microservice-cqrs-ddd-patterns/simplified-cqrs-ddd-microservice.png)
+</details>
 
-<h1 id="2">Implement reads/queries in a CQRS microservice</h1>
+<details>
+<summary>
+	<h1 id="2">Implement reads/queries in a CQRS microservice</h1>
+</summary>
 
 [Implementing reads/queries in a CQRS microservice | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/cqrs-microservice-reads)
 
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/cqrs-microservice-reads/simple-approach-cqrs-queries.png)
+</details>
 
-<h1 id="3">Sample DDD Layer Design in MA</h1>
+<details>
+<summary>
+	<h1 id="3">Sample DDD Layer Design in MA</h1>
+</summary>
 
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/ddd-oriented-microservice/domain-driven-design-microservice.png)
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/ddd-oriented-microservice/ddd-service-layer-dependencies.png)
@@ -45,9 +56,12 @@ The basic idea is that you can divide a system's operations into two sharply sep
 
 ### Infrastructure Layer
 - The infrastructure layer is how the data that is initially held in domain entities (in memory) is persisted in databases or another persistent store. An example is using Entity Framework Core code to implement the Repository pattern classes that use a DBContext to persist data in a relational database.
+</details>
 
-
-<h1 id="4">Domain Implementation</h1>
+<details>
+<summary>
+	<h1 id="4">Domain Implementation</h1>
+</summary>
 
 [Implementing a microservice domain model with .NET | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/net-core-microservice-domain-model)
 
@@ -55,8 +69,6 @@ The basic idea is that you can divide a system's operations into two sharply sep
 
 - DDD approaches should be applied only if you are implementing complex microservices with significant business rules. Simpler responsibilities, like a CRUD service, can be managed with simpler approaches
 
-
-	
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/net-core-microservice-domain-model/ordering-microservice-container.png)
 
 ### Structure aggregates in a custom .NET Standard library
@@ -66,8 +78,12 @@ The basic idea is that you can divide a system's operations into two sharply sep
 - Transactional consistency means that an aggregate is guaranteed to be consistent and up to date at the end of a business action
 
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/net-core-microservice-domain-model/vs-solution-explorer-order-aggregate.png)
+</details>
 
-<h1 id="5">Infrastructure Implementation</h1>
+<details>
+<summary>
+	<h1 id="5">Infrastructure Implementation</h1>
+	</summary>
 
 - Data persistence components provide access to the data hosted within the boundaries of a microservice
 - Repositories are classes or components that encapsulate the logic required to access data sources
@@ -75,4 +91,4 @@ The basic idea is that you can divide a system's operations into two sharply sep
 - Repository allows you to populate data in memory that comes from the database in the form of the domain entities. Once the entities are in memory, they can be changed and then persisted back to the database through transactions.
 
 ![](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/media/infrastructure-persistence-layer-design/repository-aggregate-database-table-relationships.png)
-
+</details>
