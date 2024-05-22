@@ -70,12 +70,7 @@ if (app.Environment.IsDevelopment())
     dbContext.Database.Migrate();
 
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/ECommerce8/swagger.json", "ECommerce8");
-        c.SwaggerEndpoint("/swagger/CSharpTopics/swagger.json", "CSharpTopics");
-        c.SwaggerEndpoint("/swagger/Algorithms/swagger.json", "Algorithms");
-    });
+    app.UseSwaggerUI();
 }
 
 //app.UseMiddleware<ExceptionMiddleware>();
