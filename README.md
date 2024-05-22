@@ -2,11 +2,12 @@
 
 First attempt on creating an Ecommerce store with a DDD driven architecture design. Documentation in Progress.
 
-- [Apply CQRS & DDD in MA](#1)
-- [Implement reads/queries in a CQRS microservice](#2)
-- [Sample DDD Layer Design in MA](#3)
-- [Domain Implementation](#4)
-- [Infrastructure Implementation](#5)
+* Backend Architecture Concepts
+    + [Apply CQRS & DDD in MA](#1)
+    + [Implement reads/queries in a CQRS microservice](#2)
+    + [Sample DDD Layer Design in MA](#3)
+    + [Domain Implementation](#4)
+    + [Infrastructure Implementation](#5)
 
 <details>
 <summary>
