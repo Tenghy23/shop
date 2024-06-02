@@ -1,4 +1,4 @@
-pre-req: you'll need mssql
+pre-req: you'll need mssql\
 MockProductsAndInventory - to seed some sample data
 #
 
