@@ -24,7 +24,8 @@
         {
             try
             {
-                var response = await _productRepository.GetProductByIdAsync(Guid.NewGuid());
+                var listOfProducts = await _productRepository.GetProductsAsync();
+                var response = _productService.ConvertProductsToProductsDto(listOfProducts);
                 return Ok(response);
             }
             catch (Exception ex) 
