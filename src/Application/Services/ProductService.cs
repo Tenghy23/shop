@@ -13,7 +13,7 @@
 
         public async Task<List<ProductViewModel>> ConvertProductsToProductsDto(IReadOnlyList<Product> products)
         {
-            var listOfProductDto = new List<ProductViewModel();
+            var listOfProductDto = new List<ProductViewModel>();
             foreach (var i in products)
             {
                 listOfProductDto.Add(new ProductViewModel()
