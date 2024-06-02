@@ -1,3 +1,7 @@
+pre-req: you'll need mssql
+MockProductsAndInventory - to seed some sample data
+#
+
 # Domain-Driven Design for Microservice Architecture .Net8
 
 First attempt on creating an Ecommerce store with a DDD driven architecture design. Documentation in Progress.
