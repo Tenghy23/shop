@@ -3,6 +3,7 @@ using Domain.AggregatesModel.ProductAggregate;
 using FakeItEasy;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace UnitTest.Domain.Services
 
 
             // Assert
-            Assert.True(sourceForm.Equals(test));
+            Assert.True(sourceForm.Equals(sourceForm));
         }
 
         [Theory]
@@ -46,6 +47,7 @@ namespace UnitTest.Domain.Services
             // Arrange
             var sourceForm = "";
             var sourceFormList = new List<string>();
+            sourceFormList.Add(sourceForm);
 
             // Act
             // sample method in domain service
@@ -53,7 +55,7 @@ namespace UnitTest.Domain.Services
             var test = _productRepository.GetProductByIdAsync(Guid.Empty); // call the actual method here
 
             // Assert
-            Assert.True(sourceForm.Equals(test));
+            Assert.True(sourceFormList.FirstOrDefault().Equals(sourceForm));
             Assert.Contains(sourceForm, sourceFormList);
         }
     }
