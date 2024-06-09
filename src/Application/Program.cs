@@ -1,3 +1,6 @@
+using Domain.AggregatesModel.IDiscountRepository;
+using Infrastructure.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
@@ -44,6 +47,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 #endregion
 
 #region AddScoped region for domain services

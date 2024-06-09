@@ -1,12 +1,6 @@
 ﻿using Domain.AggregatesModel.InventoryAggregate;
 using Domain.AggregatesModel.ProductAggregate;
 using FakeItEasy;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTest.Domain.Services
@@ -21,6 +15,8 @@ namespace UnitTest.Domain.Services
         {
             _productDomainService = new ProductDomainService(_productRepository, _inventoryRepository);
         }
+
+
 
         [Fact]
         public async Task MockProduct()

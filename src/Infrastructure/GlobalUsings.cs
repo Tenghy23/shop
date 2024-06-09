@@ -10,6 +10,7 @@ global using Domain.AggregatesModel.OrderAggregate;
 global using Domain.AggregatesModel.OrderDetailsAggregate;
 global using Domain.AggregatesModel.PaymentDetailsAggregate;
 global using Domain.AggregatesModel.ProductAggregate;
+global using Domain.AggregatesModel.IDiscountRepository;
 global using Domain.AggregatesModel.UserAggregate;
 global using Domain.AggregatesModel.AddressAggregate;
 global using Microsoft.EntityFrameworkCore;

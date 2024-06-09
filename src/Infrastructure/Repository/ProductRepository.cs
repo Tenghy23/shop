@@ -31,7 +31,7 @@
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.Include(x => x.Discount).ToListAsync();
         }
     }
 }

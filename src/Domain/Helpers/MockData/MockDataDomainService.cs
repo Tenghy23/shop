@@ -8,26 +8,30 @@ namespace Domain.Helpers.MockData
         private readonly IInventoryRepository _inventoryRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IAddressRepository _addressRepository;
+        private readonly IDiscountRepository _discountRepository;
 
         public MockDataDomainService(
             IProductRepository productRepository,
             IInventoryRepository inventoryRepository,
             ICategoryRepository categoryRepository,
-            IAddressRepository addressRepository
+            IAddressRepository addressRepository,
+            IDiscountRepository discountRepository
             )
         {
             _productRepository = productRepository;
             _inventoryRepository = inventoryRepository;
             _categoryRepository = categoryRepository;
             _addressRepository = addressRepository;
+            _discountRepository = discountRepository;
         }
 
-        public async Task<string> MockProductsAndInventory(int count)
+        public async Task<string> MockProductsInventoryDiscount(int count)
         {
             try
             {
                 var inventories = new List<Inventory>();
                 var products = new List<Product>();
+                var discounts = new List<Discount>();
 
                 for (int i = 0; i < count; i++)
                 {
@@ -41,17 +45,22 @@ namespace Domain.Helpers.MockData
                     var description = randomizerDescription.Generate();
 
                     var mockInventory = new Inventory(newId, invCount);
-                    var mockProduct = new Product(newId, null, name, description, 0, price);
+                    var mockProduct = new Product(newId, Guid.NewGuid(), name, description, 0, price);
+                    var mockDiscount = new Discount(mockProduct.Id, "default", "default discount", 0, null, true);
 
                     inventories.Add(mockInventory);
                     Console.WriteLine($"{i} inventories seeded");
 
                     products.Add(mockProduct);
                     Console.WriteLine($"{i} products seeded");
+
+                    discounts.Add(mockDiscount);
+                    Console.WriteLine($"{i} discounts seeded");
                 }
 
                 await _productRepository.SaveDataAsync(products);
                 await _inventoryRepository.SaveDataAsync(inventories);
+                await _discountRepository.SaveDataAsync(discounts);
 
                 return $"{count} products successfully seeded";
             }
