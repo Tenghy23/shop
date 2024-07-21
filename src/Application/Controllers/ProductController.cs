@@ -23,9 +23,8 @@
         public async Task<IActionResult> GetAllProducts()
         {
             var listOfProducts = await _productRepository.GetProductsAsync();
-            var response = _productService.ConvertProductsToProductsDto(listOfProducts);
+            var response = _productService.ConvertProductsToProductsDto(listOfProducts); // todo: return viewModel, not dto
             return Ok(response);
-
         }
 
         [HttpPost("getProductWithId")]
@@ -35,6 +34,7 @@
         public async Task<IActionResult> GetProductWithId([FromBody] Guid id)
         {
             var response = await _productRepository.GetProductByIdAsync(id);
+            if (response is null) { throw new ProductNotFoundException(id); }
             return Ok(response);
         }
     }

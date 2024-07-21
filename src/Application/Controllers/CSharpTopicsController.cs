@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Application.Controllers
+﻿namespace Application.Controllers
 {
-    public class CSharpTopicsController : ApplicationBaseController
+    public class CSharpTopicsController : Controller
     {
         private readonly ICSharpTopicsService _cSharpTopicService;
 
@@ -19,15 +17,8 @@ namespace Application.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> StreamWriteIntoTxtFile()
         {
-            try
-            {
-                var response = await _cSharpTopicService.StreamWriteIntoTxtFile();
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _cSharpTopicService.StreamWriteIntoTxtFile();
+            return Ok(response);
         }
 
         [HttpPost("StreamReadFromTxtFile")]
@@ -36,15 +27,8 @@ namespace Application.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> StreamReadFromTxtFile()
         {
-            try
-            {
-                var response = await _cSharpTopicService.StreamReadFromTxtFile();
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _cSharpTopicService.StreamReadFromTxtFile();
+            return Ok(response);
         }
 
         [HttpPost("StreamWriteIntoExcelFile")]
@@ -53,15 +37,8 @@ namespace Application.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> StreamWriteIntoExcelFile()
         {
-            try
-            {
-                var response = await _cSharpTopicService.StreamWriteIntoExcelFile();
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _cSharpTopicService.StreamWriteIntoExcelFile();
+            return Ok(response);
         }
 
         [HttpPost("StreamReadFromExcelFile")]
@@ -70,15 +47,8 @@ namespace Application.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> StreamReadFromExcelFile()
         {
-            try
-            {
-                var response = await _cSharpTopicService.StreamReadFromExcelFile();
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _cSharpTopicService.StreamReadFromExcelFile();
+            return Ok(response);
         }
     }
 }
