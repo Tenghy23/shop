@@ -26,6 +26,9 @@
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
+            //int numerator = 10;
+            //int denominator = 0;
+            //int result = numerator / denominator;
             return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 

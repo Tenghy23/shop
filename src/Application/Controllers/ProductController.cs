@@ -2,7 +2,7 @@
 {
     [ApiController]
     //[Route("[product]")]
-    public class ProductController : ApplicationBaseController
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly IProductRepository _productRepository;
@@ -22,16 +22,10 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllProducts()
         {
-            try
-            {
-                var listOfProducts = await _productRepository.GetProductsAsync();
-                var response = _productService.ConvertProductsToProductsDto(listOfProducts);
-                return Ok(response);
-            }
-            catch (Exception ex) 
-            {
-                return InvalidResponse(ex);
-            }
+            var listOfProducts = await _productRepository.GetProductsAsync();
+            var response = _productService.ConvertProductsToProductsDto(listOfProducts);
+            return Ok(response);
+
         }
 
         [HttpPost("getProductWithId")]
@@ -40,16 +34,8 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetProductWithId([FromBody] Guid id)
         {
-            try
-            {
-                var response = await _productRepository.GetProductByIdAsync(id);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _productRepository.GetProductByIdAsync(id);
+            return Ok(response);
         }
-
     }
 }

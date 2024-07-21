@@ -34,3 +34,7 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Text;
 global using Microsoft.AspNetCore.Identity;
+global using System.Net;
+global using Application.Models.Exceptions;
+global using Domain.AggregatesModel.IDiscountRepository;
+global using Infrastructure.Repository;

@@ -1,6 +1,3 @@
-using Domain.AggregatesModel.IDiscountRepository;
-using Infrastructure.Repository;
-
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
@@ -45,6 +42,10 @@ builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<StoreDbContext>()
     .AddApiEndpoints();
 
+// for global exception handling - part 1
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 #region AddScoped region for repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -80,8 +81,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseMiddleware<ExceptionMiddleware>();
-//app.UseStatusCodePagesWithReExecute("/errors/{0}");
+// for global exception handling - part 2
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
