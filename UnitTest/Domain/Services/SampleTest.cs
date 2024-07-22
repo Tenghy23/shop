@@ -1,9 +1,4 @@
-﻿using Domain.AggregatesModel.InventoryAggregate;
-using Domain.AggregatesModel.ProductAggregate;
-using FakeItEasy;
-using Xunit;
-
-namespace UnitTest.Domain.Services
+﻿namespace UnitTest.Domain.Services
 {
     public class SampleTest
     {
