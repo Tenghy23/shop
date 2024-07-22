@@ -1,8 +1,11 @@
 pre-req: you'll need mssql\
 MockProductsAndInventory - to seed some sample data
+
+You'll also need .NET9 SDK as well
+https://dotnet.microsoft.com/en-us/download/dotnet/9.0
 #
 
-# Domain-Driven Design for Microservice Architecture .Net8
+# Domain-Driven Design for Microservice Architecture .Net9
 
 First attempt on creating an Ecommerce store with a DDD driven architecture design. Documentation in Progress.
 
