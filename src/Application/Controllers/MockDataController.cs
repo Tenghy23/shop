@@ -38,7 +38,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MockAddress(int count)
         {
-            var response = await _mockDataService.MockProductsAndInventory(count);
+            var response = await _mockDataService.MockAddress(count);
             return Ok(response);
         }
     }
