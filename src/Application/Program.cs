@@ -26,7 +26,10 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyHeader().AllowAnyHeader().WithOrigins("https://localhost:4200");
+        policy.AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .WithOrigins("http://localhost:3000")
+                 .AllowCredentials();
     });
 });
 
@@ -39,11 +42,16 @@ builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<StoreDbContext>()
     .AddApiEndpoints();
 
+// for global exception handling - part 1
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 #region AddScoped region for repository
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 #endregion
 
 #region AddScoped region for domain services
@@ -73,8 +81,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseMiddleware<ExceptionMiddleware>();
-//app.UseStatusCodePagesWithReExecute("/errors/{0}");
+// for global exception handling - part 2
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();

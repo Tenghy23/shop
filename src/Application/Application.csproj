@@ -26,7 +26,9 @@
   <ItemGroup>
     <Folder Include="EventHandlers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Models\ViewModel\" />
     <Folder Include="Templates\" />
   </ItemGroup>
 

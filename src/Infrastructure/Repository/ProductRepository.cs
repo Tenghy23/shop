@@ -26,12 +26,15 @@
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
+            //int numerator = 10;
+            //int denominator = 0;
+            //int result = numerator / denominator;
             return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.Include(x => x.Discount).ToListAsync();
         }
     }
 }

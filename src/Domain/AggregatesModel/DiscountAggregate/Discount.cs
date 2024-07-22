@@ -11,6 +11,14 @@ namespace Domain.AggregatesModel.DiscountAggregate
         public decimal? FixedValue { get; private set; }
         public bool Active { get; private set; }
 
-        public Discount() { }
+        public Discount(Guid productId, string name, string description, decimal? percentage, decimal? fixedValue, bool active)
+        {
+            ProductId = productId;
+            Name = name;
+            Description = description;
+            Percentage = percentage;
+            FixedValue = fixedValue;
+            Active = active;
+        }
     }
 }

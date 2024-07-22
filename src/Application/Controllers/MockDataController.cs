@@ -1,7 +1,7 @@
 ﻿namespace Application.Controllers
 {
     [ApiController]
-    public class MockDataController : ApplicationBaseController
+    public class MockDataController : Controller
     {
         private readonly IMockDataService _mockDataService;
 
@@ -18,15 +18,8 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MockProductsAndInventory(int count)
         {
-            try
-            {
-                var response = await _mockDataService.MockProductsAndInventory(count);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _mockDataService.MockProductsAndInventory(count);
+            return Ok(response);
         }
 
         [HttpPost("MockCategory")]
@@ -35,15 +28,8 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MockCategory(int count)
         {
-            try
-            {
-                var response = await _mockDataService.MockCategory(count);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _mockDataService.MockProductsAndInventory(count);
+            return Ok(response);
         }
 
         [HttpPost("MockAddress")]
@@ -52,16 +38,8 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> MockAddress(int count)
         {
-            try
-            {
-                var response = await _mockDataService.MockAddress(count);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return InvalidResponse(ex);
-            }
+            var response = await _mockDataService.MockProductsAndInventory(count);
+            return Ok(response);
         }
-
     }
 }

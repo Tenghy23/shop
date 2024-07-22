@@ -2,7 +2,7 @@
 {
     public interface IMockDataDomainService
     {
-        Task<string> MockProductsAndInventory(int count);
+        Task<string> MockProductsInventoryDiscount(int count);
         Task<string> MockCategory(int count);
         Task<string> MockAddress(int count);
     }

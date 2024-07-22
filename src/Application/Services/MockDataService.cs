@@ -19,7 +19,7 @@
             } 
             else
             {
-                return await _mockDataDomainService.MockProductsAndInventory(count);
+                return await _mockDataDomainService.MockProductsInventoryDiscount(count);
             }
         }
 
