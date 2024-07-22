@@ -61,5 +61,15 @@
             return Ok(response);
         }
 
+        [HttpPost("MultithreadingSharedListMutate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> MultithreadingSharedListMutate()
+        {
+            var response = await _cSharpTopicService.MultithreadingSharedListMutate();
+            return Ok(response);
+        }
+
     }
 }

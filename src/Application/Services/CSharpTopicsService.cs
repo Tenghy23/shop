@@ -152,7 +152,7 @@ namespace Application.Services
             return "file successfully read";
         }
 
-
+        //  multithreading
         public async Task<string> MultithreadingVsSynchronous()
         {
             int[] numbers = Enumerable.Range(1, 1000000).ToArray();
@@ -195,6 +195,45 @@ namespace Application.Services
                 $"Total sum of squares without multithreading: {totalSum1}, with time taken: {timer2.Elapsed}";
         }
 
+        public async Task<string> MultithreadingSharedListMutate()
+        {
+            int[] numbers = Enumerable.Range(1, 100000).ToArray();
+
+            #region multithreading
+            var listOfString = new List<string>();
+            Stopwatch timer1 = new Stopwatch();
+            timer1.Start();
+
+            // pass in a list that will mutate asynchronously, perform calculation in parallel return list
+            var tasks = new List<Task>();
+            tasks.Add(Task.Run(() => CalculatePartialSum(numbers, 0, numbers.Length / 4, listOfString)));
+            tasks.Add(Task.Run(() => CalculatePartialSum(numbers, numbers.Length / 4, numbers.Length / 2, listOfString)));
+            tasks.Add(Task.Run(() => CalculatePartialSum(numbers, numbers.Length / 2, numbers.Length * 3 / 4, listOfString)));
+            tasks.Add(Task.Run(() => CalculatePartialSum(numbers, numbers.Length * 3 / 4, numbers.Length, listOfString)));
+
+            await Task.WhenAll(tasks);
+            timer1.Stop();
+            #endregion
+
+            #region without multithreading
+            Stopwatch timer2 = new Stopwatch();
+            timer2.Start();
+
+            // pass in a list that will mutate synchronously, perform calculation & return list
+            var listOfString1 = new List<string>();
+
+            CalculatePartialSum(numbers, 0, numbers.Length / 4, listOfString1);
+            CalculatePartialSum(numbers, numbers.Length / 4, numbers.Length / 2, listOfString1);
+            CalculatePartialSum(numbers, numbers.Length / 2, numbers.Length * 3 / 4, listOfString1);
+            CalculatePartialSum(numbers, numbers.Length * 3 / 4, numbers.Length, listOfString1);
+
+            timer2.Stop();
+            #endregion
+
+            return $"listOfString after multithreading: [{string.Join(", ", listOfString)}], with time taken: {timer1.Elapsed}\n" +
+                $"listOfString without multithreading: [{string.Join(", ", listOfString1)}], with time taken: {timer2.Elapsed}";
+        }
+
         #region helper method for excel
         static void InsertRow(WorksheetPart worksheetPart, string[] rowData)
         {
@@ -232,13 +271,20 @@ namespace Application.Services
         #endregion
 
         #region helper method for multithreading exercises
-        private int CalculatePartialSum(int[] numbers, int startIndex, int endIndex)
+        private int CalculatePartialSum(int[] numbers, int startIndex, int endIndex, List<string>? list = null)
         {
             int partialSum = 0;
             for (int i = startIndex; i < endIndex; i++)
             {
                 partialSum += numbers[i] * numbers[i]; // Calculate square and sum
                 var test = new Sample(partialSum); // assign into a class to simulate load
+                if (list.Count() < 1000)
+                {
+                    lock (list)
+                    {
+                        list.Add(partialSum.ToString());
+                    }
+                }
             }
             return partialSum;
         }

@@ -7,5 +7,6 @@
         Task<string> StreamWriteIntoExcelFile();
         Task<string> StreamReadFromExcelFile();
         Task<string> MultithreadingVsSynchronous();
+        Task<string> MultithreadingSharedListMutate();
     }
 }
