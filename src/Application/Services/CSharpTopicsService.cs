@@ -1,6 +1,6 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Spreadsheet;
+﻿using Application.Models.SampleModels;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 
 namespace Application.Services
 {
@@ -152,7 +152,50 @@ namespace Application.Services
             return "file successfully read";
         }
 
-        #region helper method
+
+        public async Task<string> MultithreadingIncrementExercise()
+        {
+            int[] numbers = Enumerable.Range(1, 1000000).ToArray();
+
+            #region multithreading
+            Stopwatch timer1 = new Stopwatch();
+            timer1.Start();
+
+            // init a array to hold the values, perform calculation in parallel and sum them up
+            int[] partialSums = new int[4];
+
+            var tasks = new List<Task>();
+            tasks.Add(Task.Run(() => partialSums[0] = CalculatePartialSum(numbers, 0, numbers.Length / 4)));
+            tasks.Add(Task.Run(() => partialSums[1] = CalculatePartialSum(numbers, numbers.Length / 4, numbers.Length / 2)));
+            tasks.Add(Task.Run(() => partialSums[2] = CalculatePartialSum(numbers, numbers.Length / 2, numbers.Length * 3 / 4)));
+            tasks.Add(Task.Run(() => partialSums[3] = CalculatePartialSum(numbers, numbers.Length * 3 / 4, numbers.Length)));
+
+            await Task.WhenAll(tasks);
+            int totalSum = partialSums.Sum();
+            timer1.Stop();
+            #endregion
+
+            #region without multithreading
+            Stopwatch timer2 = new Stopwatch();
+            timer2.Start();
+
+            // init array, perform the calculation synchronously and sum them up
+            int[] partialSums1 = new int[4];
+
+            partialSums1[0] = CalculatePartialSum(numbers, 0, numbers.Length / 4);
+            partialSums1[1] = CalculatePartialSum(numbers, numbers.Length / 4, numbers.Length / 2);
+            partialSums1[2] = CalculatePartialSum(numbers, numbers.Length / 2, numbers.Length * 3 / 4);
+            partialSums1[3] = CalculatePartialSum(numbers, numbers.Length * 3 / 4, numbers.Length);
+
+            int totalSum1 = partialSums1.Sum();
+            timer2.Stop();
+            #endregion
+
+            return $"Total sum of squares after multithreading: {totalSum}, with time taken: {timer1.Elapsed}\n" +
+                $"Total sum of squares without multithreading: {totalSum1}, with time taken: {timer2.Elapsed}";
+        }
+
+        #region helper method for excel
         static void InsertRow(WorksheetPart worksheetPart, string[] rowData)
         {
             SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
@@ -185,6 +228,19 @@ namespace Application.Services
                 value = sharedStringItem.Text.Text;
             }
             return value;
+        }
+        #endregion
+
+        #region helper method for multithreading exercises
+        private int CalculatePartialSum(int[] numbers, int startIndex, int endIndex)
+        {
+            int partialSum = 0;
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                partialSum += numbers[i] * numbers[i]; // Calculate square and sum
+                var test = new Sample(partialSum); // assign into a class to simulate load
+            }
+            return partialSum;
         }
         #endregion
     }

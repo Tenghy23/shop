@@ -6,5 +6,6 @@
         Task<string> StreamReadFromTxtFile();
         Task<string> StreamWriteIntoExcelFile();
         Task<string> StreamReadFromExcelFile();
+        Task<string> MultithreadingIncrementExercise();
     }
 }

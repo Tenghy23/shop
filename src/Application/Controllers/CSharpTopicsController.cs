@@ -50,5 +50,16 @@
             var response = await _cSharpTopicService.StreamReadFromExcelFile();
             return Ok(response);
         }
+
+        [HttpPost("MultithreadingIncrementExercise")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> MultithreadingIncrementExercise()
+        {
+            var response = await _cSharpTopicService.MultithreadingIncrementExercise();
+            return Ok(response);
+        }
+
     }
 }

@@ -24,3 +24,6 @@ global using System.Net;
 global using Domain.AggregatesModel.IDiscountRepository;
 global using Infrastructure.Repository;
 global using Application.Middleware;
+global using DocumentFormat.OpenXml.Packaging;
+global using DocumentFormat.OpenXml;
+global using DocumentFormat.OpenXml.Spreadsheet;
