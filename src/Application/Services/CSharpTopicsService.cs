@@ -153,7 +153,7 @@ namespace Application.Services
         }
 
 
-        public async Task<string> MultithreadingIncrementExercise()
+        public async Task<string> MultithreadingVsSynchronous()
         {
             int[] numbers = Enumerable.Range(1, 1000000).ToArray();
 

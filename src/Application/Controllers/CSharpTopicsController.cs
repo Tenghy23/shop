@@ -51,13 +51,13 @@
             return Ok(response);
         }
 
-        [HttpPost("MultithreadingIncrementExercise")]
+        [HttpPost("MultithreadingVsSynchronous")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> MultithreadingIncrementExercise()
+        public async Task<IActionResult> MultithreadingVsSynchronous()
         {
-            var response = await _cSharpTopicService.MultithreadingIncrementExercise();
+            var response = await _cSharpTopicService.MultithreadingVsSynchronous();
             return Ok(response);
         }
 
