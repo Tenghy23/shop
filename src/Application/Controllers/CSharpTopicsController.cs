@@ -51,13 +51,13 @@
             return Ok(response);
         }
 
-        [HttpPost("MultithreadingVsSynchronous")]
+        [HttpPost("AsyncParallelVsSynchronous")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> MultithreadingVsSynchronous()
+        public async Task<IActionResult> AsyncParallelVsSynchronous()
         {
-            var response = await _cSharpTopicService.MultithreadingVsSynchronous();
+            var response = await _cSharpTopicService.AsyncParallelVsSynchronous();
             return Ok(response);
         }
 
