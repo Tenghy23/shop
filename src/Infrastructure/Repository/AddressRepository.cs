@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Data
+﻿using System.Linq.Expressions;
+
+namespace Infrastructure.Data
 {
     public class AddressRepository : IAddressRepository
     {
@@ -8,21 +10,34 @@
             _dbContext = context;
         }
 
-        // HY to look into this again.. may not be the best way to save ...
-        public async Task SaveDataAsync(IEnumerable<Address> addresses)
+        public async Task<IEnumerable<Address>> RetrieveAddressAsync(Expression<Func<Address, bool>> criteria)
         {
-            try
-            {
-                _dbContext.Address.AddRange(addresses);
+            IQueryable<Address> query = _dbContext.Address
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Where(criteria);
 
-                // Save changes to the database
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Address SaveChangesAsync error: {ex.Message}");
-            }
+            return await query.ToListAsync() ?? Enumerable.Empty<Address>();
         }
 
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public void AddAddressAsync(List<Address> address)
+        {
+            _dbContext.AddRangeAsync(address);
+        }
+
+        public void UpdateAddressAsync(List<Address> address)
+        {
+            _dbContext.UpdateRange(address);
+        }
+
+        public void UpdateAddressAsync(Address address)
+        {
+            _dbContext.Update(address);
+        }
     }
 }

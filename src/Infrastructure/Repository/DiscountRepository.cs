@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Repository
+﻿using System.Linq.Expressions;
+
+namespace Infrastructure.Repository
 {
     public class DiscountRepository : IDiscountRepository
     {
@@ -8,20 +10,34 @@
             _dbContext = context;
         }
 
-        // HY to look into this again.. may not be the best way to save ...
-        public async Task SaveDataAsync(IEnumerable<Discount> discount)
+        public async Task<IEnumerable<Discount>> RetrieveDiscountAsync(Expression<Func<Discount, bool>> criteria)
         {
-            try
-            {
-                _dbContext.Discount.AddRange(discount);
+            IQueryable<Discount> query = _dbContext.Discount
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Where(criteria);
 
-                // Save changes to the database
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Discount SaveChangesAsync error: {ex.Message}");
-            }
+            return await query.ToListAsync() ?? Enumerable.Empty<Discount>();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public void AddDiscountAsync(List<Discount> discounts)
+        {
+            _dbContext.AddRangeAsync(discounts);
+        }
+
+        public void UpdateDiscountAsync(List<Discount> discounts)
+        {
+            _dbContext.UpdateRange(discounts);
+        }
+
+        public void UpdateDiscountAsync(Discount discount)
+        {
+            _dbContext.Update(discount);
         }
     }
 }

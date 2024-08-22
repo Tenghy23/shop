@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
 
 namespace Infrastructure.Data
 {
@@ -10,21 +10,34 @@ namespace Infrastructure.Data
             _dbContext = context;
         }
 
-        // HY to look into this again.. may not be the best way to save ...
-        public async Task SaveDataAsync(IEnumerable<Inventory> inventories)
+        public async Task<IEnumerable<Inventory>> RetrieveInventoryAsync(Expression<Func<Inventory, bool>> criteria)
         {
-            try
-            {
-                _dbContext.Inventory.AddRange(inventories);
+            IQueryable<Inventory> query = _dbContext.Inventory
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Where(criteria);
 
-                // Save changes to the database
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Inventory SaveChangesAsync error: {ex.Message}");
-            }
+            return await query.ToListAsync() ?? Enumerable.Empty<Inventory>();
         }
 
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public void AddInventoryAsync(List<Inventory> inventories)
+        {
+            _dbContext.AddRangeAsync(inventories);
+        }
+
+        public void UpdateInventoryAsync(List<Inventory> inventories)
+        {
+            _dbContext.UpdateRange(inventories);
+        }
+
+        public void UpdateInventoryAsync(Inventory inventory)
+        {
+            _dbContext.Update(inventory);
+        }
     }
 }

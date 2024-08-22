@@ -1,4 +1,6 @@
-﻿namespace UnitTest.Domain.Services
+﻿using System.Linq.Expressions;
+
+namespace UnitTest.Domain.Services
 {
     public class SampleTest
     {
@@ -8,25 +10,23 @@
 
         public SampleTest() 
         {
-            _productDomainService = new ProductDomainService(_productRepository, _inventoryRepository);
         }
-
-
 
         [Fact]
         public async Task MockProduct()
         {
             // Arrange
-            var sourceForm = "";
+            var inventoryId = Guid.NewGuid();
+            var categoryId = Guid.NewGuid();
+            var seed = new List<Product>() { new Product(inventoryId, categoryId, "test", "test", 1, (decimal?)1.0) };
+            A.CallTo(() => _productRepository.RetrieveProductAsync(A<Expression<Func<Product, bool>>>.Ignored))
+                .Returns(Task.FromResult<IEnumerable<Product>>(seed));
 
             // Act
-            // sample method in domain service
-            A.CallTo(() => _productRepository.GetProductByIdAsync(Guid.Empty));
-            var test = _productRepository.GetProductByIdAsync(Guid.Empty); // call the actual method here
-
+            var result = await _productRepository.RetrieveProductAsync(x => x.CategoryId == categoryId);
 
             // Assert
-            Assert.True(sourceForm.Equals(sourceForm));
+            Assert.True(result.FirstOrDefault().Equals(seed.FirstOrDefault()));
         }
 
         [Theory]
@@ -35,19 +35,19 @@
         [InlineData("test","test8","test9","test0")]
         public async Task MockProduct2(string value1, string value2, string value3, string value4)
         {
+            // to showcase InlineData only, test is actually the same
             // Arrange
-            var sourceForm = "";
-            var sourceFormList = new List<string>();
-            sourceFormList.Add(sourceForm);
+            var inventoryId = Guid.NewGuid();
+            var categoryId = Guid.NewGuid();
+            var seed = new List<Product>() { new Product(inventoryId, categoryId, "test", "test", 1, (decimal?)1.0) };
+            A.CallTo(() => _productRepository.RetrieveProductAsync(A<Expression<Func<Product, bool>>>.Ignored))
+                .Returns(Task.FromResult<IEnumerable<Product>>(seed));
 
             // Act
-            // sample method in domain service
-            A.CallTo(() => _productRepository.GetProductByIdAsync(Guid.Empty));
-            var test = _productRepository.GetProductByIdAsync(Guid.Empty); // call the actual method here
+            var result = await _productRepository.RetrieveProductAsync(x => x.CategoryId == categoryId);
 
             // Assert
-            Assert.True(sourceFormList.FirstOrDefault().Equals(sourceForm));
-            Assert.Contains(sourceForm, sourceFormList);
+            Assert.True(result.FirstOrDefault().Equals(seed.FirstOrDefault()));
         }
     }
 }

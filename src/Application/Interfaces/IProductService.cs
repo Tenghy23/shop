@@ -2,6 +2,6 @@
 {
     public interface IProductService
     {
-        Task<List<ProductViewModel>> ConvertProductsToProductsDto(IReadOnlyList<Product> products);
+        Task<IEnumerable<ProductViewModel>> ConvertProductsToProductsDto(IEnumerable<Product> products);
     }
 }

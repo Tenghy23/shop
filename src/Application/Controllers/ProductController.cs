@@ -1,4 +1,6 @@
-﻿namespace Application.Controllers
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+
+namespace Application.Controllers
 {
     [ApiController]
     //[Route("[product]")]
@@ -22,7 +24,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllProducts()
         {
-            var listOfProducts = await _productRepository.GetProductsAsync();
+            var listOfProducts = await _productRepository.RetrieveProductAsync(x => x == x);
             var response = _productService.ConvertProductsToProductsDto(listOfProducts); // todo: return viewModel, not dto
             return Ok(response);
         }
@@ -33,7 +35,7 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetProductWithId([FromBody] Guid id)
         {
-            var response = await _productRepository.GetProductByIdAsync(id);
+            var response = await _productRepository.RetrieveProductAsync(x => x.Id == id);
             if (response is null) { throw new ProductNotFoundException(id); }
             return Ok(response);
         }

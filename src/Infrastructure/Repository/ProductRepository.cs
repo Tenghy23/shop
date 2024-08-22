@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Data
+﻿using System.Linq.Expressions;
+
+namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
@@ -8,46 +10,34 @@
             _dbContext = context;
         }
 
-        //public async Task SaveDataAsync(IEnumerable<Product> products)
-        //{
-        //    try
-        //    {
-        //        _dbContext.Products.AddRange(products);
+        public async Task<IEnumerable<Product>> RetrieveProductAsync(Expression<Func<Product, bool>> criteria)
+        {
+            IQueryable<Product> query = _dbContext.Products
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Where(criteria);
 
-        //        // Save changes to the database
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception($"Product SaveChangesAsync error: {ex.Message}");
-        //    }
-        //}
+            return await query.ToListAsync() ?? Enumerable.Empty<Product>();
+        }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public void AddProductAsync(List<Product> products)
+        {
+            _dbContext.AddRangeAsync(products);
+        }
+
+        public void UpdateProductAsync(List<Product> products)
+        {
+            _dbContext.UpdateRange(products);
+        }
+
+        public void UpdateProductAsync(Product product)
         {
             _dbContext.Update(product);
-        }
-
-        public async Task SaveChangesAsync(ICancellationToken )
-        {
-            _dbContext.Products.AddRange(products);
-
-        }
-
-        public async Task SaveChangesAsync(IEnumerable<Product> products)
-        {
-            _dbContext.Products.AddRange(products);
-
-        }
-
-            public async Task<Product> GetProductByIdAsync(Guid id)
-        {
-            return await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
-        {
-            return await _dbContext.Products.Include(x => x.Discount).ToListAsync();
         }
     }
 }

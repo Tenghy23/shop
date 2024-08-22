@@ -1,9 +1,14 @@
-﻿namespace Domain.AggregatesModel.ProductAggregate
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+
+namespace Domain.AggregatesModel.ProductAggregate
 {
     public interface IProductRepository
     {
-        Task SaveDataAsync(IEnumerable<Product> products);
-        Task<Product> GetProductByIdAsync(Guid id);
-        Task<IReadOnlyList<Product>> GetProductsAsync();
+        Task<IEnumerable<Product>> RetrieveProductAsync(Expression<Func<Product, bool>> criteria);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        void AddProductAsync(List<Product> products);
+        void UpdateProductAsync(List<Product> products);
+        void UpdateProductAsync(Product product);
     }
 }

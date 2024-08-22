@@ -22,7 +22,6 @@ namespace Domain.Helpers.MockData
             _inventoryRepository = inventoryRepository;
             _categoryRepository = categoryRepository;
             _addressRepository = addressRepository;
-            _discountRepository = discountRepository;
         }
 
         public async Task<string> MockProductsInventoryDiscount(int count)
@@ -58,9 +57,14 @@ namespace Domain.Helpers.MockData
                     Console.WriteLine($"{i} discounts seeded");
                 }
 
-                await _productRepository.SaveDataAsync(products);
-                await _inventoryRepository.SaveDataAsync(inventories);
-                await _discountRepository.SaveDataAsync(discounts);
+                _productRepository.AddProductAsync(products);
+                await _productRepository.SaveChangesAsync();
+
+                _inventoryRepository.AddInventoryAsync(inventories);
+                await _inventoryRepository.SaveChangesAsync();
+
+                _discountRepository.AddDiscountAsync(discounts);
+                await _discountRepository.SaveChangesAsync();
 
                 return $"{count} products successfully seeded";
             }
@@ -90,7 +94,8 @@ namespace Domain.Helpers.MockData
                     Console.WriteLine($"{i} categories seeded");
                 }
 
-                await _categoryRepository.SaveDataAsync(categories);
+                _categoryRepository.AddCategoryAsync(categories);
+                await _categoryRepository.SaveChangesAsync();
 
                 return $"{count} categories successfully seeded";
             }
@@ -130,7 +135,8 @@ namespace Domain.Helpers.MockData
                     Console.WriteLine($"{i} addresses seeded");
                 }
 
-                await _addressRepository.SaveDataAsync(addresses);
+                _addressRepository.AddAddressAsync(addresses);
+                await _addressRepository.SaveChangesAsync();
 
                 return $"{count} addresses successfully seeded";
             }

@@ -11,24 +11,19 @@
             _productDomainService = productDomainService;
         }
 
-        public async Task<List<ProductViewModel>> ConvertProductsToProductsDto(IReadOnlyList<Product> products)
+        public async Task<IEnumerable<ProductViewModel>> ConvertProductsToProductsDto(IEnumerable<Product> products)
         {
-            var listOfProductDto = new List<ProductViewModel>();
-            foreach (var i in products)
+            return products.Select(x => new ProductViewModel()
             {
-                listOfProductDto.Add(new ProductViewModel()
-                {
-                    InventoryId = i.InventoryId,
-                    CategoryId = i.CategoryId,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Quantity = i.Quantity,
-                    Price = i.Price,
-                    DiscountPercentage = i.Discount.FirstOrDefault(x => x.Active is true).Percentage,
-                    DiscountFixedValue = i.Discount.FirstOrDefault(x => x.Active is true).FixedValue
-                });
-            }
-            return listOfProductDto;
+                InventoryId = x.InventoryId,
+                CategoryId = x.CategoryId,
+                Name = x.Name,
+                Description = x.Description,
+                Quantity = x.Quantity,
+                Price = x.Price,
+                DiscountPercentage = x.Discount.FirstOrDefault(x => x.Active is true).Percentage,
+                DiscountFixedValue = x.Discount.FirstOrDefault(x => x.Active is true).FixedValue
+            });
         }
     }
 }

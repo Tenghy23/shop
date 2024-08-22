@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Data
+﻿using System.Linq.Expressions;
+
+namespace Infrastructure.Data
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -8,21 +10,34 @@
             _dbContext = context;
         }
 
-        // HY to look into this again.. may not be the best way to save ...
-        public async Task SaveDataAsync(IEnumerable<Category> categories)
+        public async Task<IEnumerable<Category>> RetrieveCategoryAsync(Expression<Func<Category, bool>> criteria)
         {
-            try
-            {
-                _dbContext.Category.AddRange(categories);
+            IQueryable<Category> query = _dbContext.Category
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Where(criteria);
 
-                // Save changes to the database
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Category SaveChangesAsync error: {ex.Message}");
-            }
+            return await query.ToListAsync() ?? Enumerable.Empty<Category>();
         }
 
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public void AddCategoryAsync(List<Category> category)
+        {
+            _dbContext.AddRangeAsync(category);
+        }
+
+        public void UpdateCategoryAsync(List<Category> category)
+        {
+            _dbContext.UpdateRange(category);
+        }
+
+        public void UpdateCategoryAsync(Category category)
+        {
+            _dbContext.Update(category);
+        }
     }
 }
