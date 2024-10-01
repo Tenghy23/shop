@@ -11,9 +11,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.0-preview.6.24328.4" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enum\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="Validators\" />
     <Folder Include="SeedWork\" />
   </ItemGroup>
