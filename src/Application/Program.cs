@@ -33,6 +33,7 @@ builder.Services.AddCors(opt =>
     });
 });
 
+builder.Services.AddSignalR();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
     .AddCookie(IdentityConstants.ApplicationScheme)
@@ -61,7 +62,8 @@ builder.Services.AddScoped<IMockDataDomainService, MockDataDomainService>();
 
 #region AddScoped region for application services
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICSharpTopicsService, CSharpTopicsService>();
+// AddHttpClient is scoped by default
+builder.Services.AddHttpClient<ICSharpTopicsService, CSharpTopicsService>();
 builder.Services.AddScoped<IMockDataService, MockDataService>();
 #endregion
 
@@ -96,6 +98,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapIdentityApi<User>();
+    endpoints.MapHub<StockTickerHub>("/stockTickerHub");
 });
 #endregion
 

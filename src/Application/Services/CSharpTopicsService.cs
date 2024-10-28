@@ -1,12 +1,22 @@
 ﻿using Application.Models.SampleModels;
-using System.Collections.Concurrent;
+using Domain.AggregatesModel.OtherAggregate;
 using System.Diagnostics;
-using System.Diagnostics.Metrics;
+using System.Text.Json;
 
 namespace Application.Services
 {
     public class CSharpTopicsService : ICSharpTopicsService
     {
+        private readonly HttpClient _httpClient;
+        // to remove
+        private readonly string AlphaVantageApiKey = "";
+        private const string BaseUrl = "https://www.alphavantage.co/query?";
+
+        public CSharpTopicsService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
         #region streamWriting excel/txt files
         public async Task<string> StreamWriteIntoTxtFile()
         {
@@ -14,7 +24,7 @@ namespace Application.Services
             string[] lines = { "First line", "Second line", "Third line" };
 
             // Set a variable to MyDocuments unless outputPath exist
-            string outputPath = @"C:\Users\Tengh\repo\ECommerce8\outputFiles";
+            string outputPath = @"C:\Users\damie\Repository\ECommerce10\outputFiles";
             if (!Directory.Exists(outputPath))
             {
                 outputPath =
@@ -40,7 +50,7 @@ namespace Application.Services
         public async Task<string> StreamReadFromTxtFile()
         {
             // Set a variable to MyDocuments unless outputPath exist
-            string outputPath = @"C:\Users\Tengh\repo\ECommerce8\outputFiles";
+            string outputPath = @"C:\Users\damie\Repository\ECommerce10\outputFiles";
             if (!Directory.Exists(outputPath))
             {
                 outputPath =
@@ -68,7 +78,7 @@ namespace Application.Services
             string[] values = { "First line", "Second line", "Third line" };
 
             // Set a variable to MyDocuments unless outputPath exist
-            string outputPath = @"C:\Users\Tengh\repo\ECommerce8\outputFiles";
+            string outputPath = @"C:\Users\damie\Repository\ECommerce10\outputFiles";
             if (!Directory.Exists(outputPath))
             {
                 outputPath =
@@ -117,7 +127,7 @@ namespace Application.Services
         public async Task<string> StreamReadFromExcelFile()
         {
             // Set a variable to MyDocuments unless outputPath exist
-            string outputPath = @"C:\Users\Tengh\repo\ECommerce8\outputFiles";
+            string outputPath = @"C:\Users\damie\Repository\ECommerce10\outputFiles";
             if (!Directory.Exists(outputPath))
             {
                 outputPath =
@@ -156,7 +166,7 @@ namespace Application.Services
         #endregion
 
         #region multithreading
-        public async Task<string> AsyncParallelVsSynchronous()
+        public async Task<string> AwaitVsSynchronousAsync()
         {
             int[] numbers = Enumerable.Range(1, 1000000).ToArray();
 
@@ -235,9 +245,27 @@ namespace Application.Services
                 $"partialSums2 without multithreading: [{string.Join(", ", partialSums2)}], with time taken: {timer2.Elapsed}";
         }
         #endregion
- 
+
+        /// <summary>
+        ///  Fetches live stock prices and displays them to the user in real-time.
+        //   https://polygon.io/docs/stocks/getting-started
+        /// </summary>
+        #region real-time stock ticker exercise
+        public async Task<Stock> FetchLiveStockPrices(string symbol)
+        {
+            var url = $"{BaseUrl}function=TIME_SERIES_DAILY&symbol={symbol}&apikey={AlphaVantageApiKey}";
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            Stock latestStock = ParseStockFromJson(responseBody);
+
+            return latestStock;
+        }
+        #endregion
+
         #region helper method for excel
-    static void InsertRow(WorksheetPart worksheetPart, string[] rowData)
+        static void InsertRow(WorksheetPart worksheetPart, string[] rowData)
         {
             SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
             Row row = new Row();
@@ -288,6 +316,39 @@ namespace Application.Services
                 }
             }
             return partialSum.ToString();
+        }
+        #endregion
+
+        #region helper method for signalR
+        private Stock ParseStockFromJson(string jsonResponse)
+        {
+            using var document = JsonDocument.Parse(jsonResponse);
+            var root = document.RootElement;
+
+            // Get symbol from metadata
+            var metaData = root.GetProperty("Meta Data");
+            string symbol = metaData.GetProperty("2. Symbol").GetString();
+
+            // Get the latest date from "Time Series (Daily)"
+            var timeSeries = root.GetProperty("Time Series (Daily)");
+            var latestEntry = timeSeries.EnumerateObject().First(); // First entry is the latest due to JSON order
+            DateTime lastUpdate = DateTime.Parse(latestEntry.Name);
+
+            // Extract details from the latest time series entry
+            var latestData = latestEntry.Value;
+            double open = double.Parse(latestData.GetProperty("1. open").GetString());
+            double close = double.Parse(latestData.GetProperty("4. close").GetString());
+            long volume = long.Parse(latestData.GetProperty("5. volume").GetString());
+
+            // Calculate price (use the close price as the latest price)
+            double price = close;
+
+            // Calculate change and change percentage
+            double change = close - open;
+            double changePercentage = (change / open) * 100;
+
+            // Create and return the Stock object
+            return new Stock(symbol, price, change, changePercentage, volume, lastUpdate);
         }
         #endregion
     }
