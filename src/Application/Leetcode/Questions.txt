@@ -1,0 +1,8 @@
+Grind75 Master List
+https://www.techinterviewhandbook.org/grind75/
+
+Singly linked list
+
+1. ListNode represents nodes in a singly linked list
+2. Each element (node) holds a value (val) and a reference (next) to the next node
+3. Each node has a pointer, and we can shift the pointer by node.next
