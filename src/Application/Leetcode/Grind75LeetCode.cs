@@ -95,12 +95,10 @@ namespace Application.Leetcode
 
             foreach (int price in prices)
             {
-                // Update the minimum price if a lower price is found
                 if (price < minPrice)
                 {
                     minPrice = price;
                 }
-                // Calculate profit if selling at the current price and update maxProfit
                 else if (price - minPrice > maxProfit)
                 {
                     maxProfit = price - minPrice;
@@ -108,6 +106,37 @@ namespace Application.Leetcode
             }
 
             return maxProfit;
+        }
+
+        public bool IsPalindrome(string s)
+        {
+            // init pointers
+            int left = 0;
+            int right = s.Length - 1;
+
+            while (left < right)
+            {
+                // this skips non-alphanumeric char
+                while (left < right && !char.IsLetterOrDigit(s[left]))
+                {
+                    left++;
+                }
+                while (left < right && !char.IsLetterOrDigit(s[right]))
+                {
+                    right--;
+                }
+
+                // comparison
+                if (char.ToLower(s[left]) != char.ToLower(s[right]))
+                {
+                    return false;
+                }
+
+                left++;
+                right--;
+            }
+
+            return true;
         }
     }
 }
