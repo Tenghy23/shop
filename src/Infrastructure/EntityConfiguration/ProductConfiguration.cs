@@ -11,6 +11,7 @@
             builder.Property(p => p.InventoryId);
 
             builder.Property(p => p.Name).IsRequired();
+            builder.HasIndex(p => p.Name);
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Quantity);
             builder.Property(p => p.Price);
