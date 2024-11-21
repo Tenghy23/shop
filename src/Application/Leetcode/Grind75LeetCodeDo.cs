@@ -83,9 +83,9 @@ namespace Application.Leetcode
             return merged.next;
         }
 
-        public int MaxProfit(int[] prices)
-        {
-        }
+        //public int MaxProfit(int[] prices)
+        //{
+        //}
 
 
         // use of pointers from left and right and meet in the middle
@@ -182,24 +182,24 @@ namespace Application.Leetcode
 
         // pre-req: learn to manipulate arrays, learn DFS & BFS
         // good explanation: https://www.youtube.com/watch?v=VuiXOc81UDM
-        public int[][] FloodFill(int[][] image, int sr, int sc, int color)
-        {
-            +
-        }
+        //public int[][] FloodFill(int[][] image, int sr, int sc, int color)
+        //{
+        //    +
+        //}
 
-        public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
-        {
-        }
+        //public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        //{
+        //}
 
         // height here represents from any node to leaf, height difference between
         // its left and right subtrees is at most 1
-        public bool IsBalanced(TreeNode root)
-        {
-        }
+        //public bool IsBalanced(TreeNode root)
+        //{
+        //}
 
-        public bool HasCycle(ListNode head)
-        {
-        }
+        //public bool HasCycle(ListNode head)
+        //{
+        //}
 
         #region helpers
         #endregion
